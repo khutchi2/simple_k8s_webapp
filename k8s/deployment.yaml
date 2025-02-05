@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: webapp
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: webapp
@@ -13,8 +13,8 @@ spec:
         app: webapp
     spec:
       containers:
-      - name: webapp
-        image: webapp:latest
+      - name: howdy-earth
+        image: khutchi2/howdy-earth:webapp
         ports:
         - containerPort: 5000
         resources:
