@@ -14,38 +14,20 @@ docker login
 and follow the prompts to authenticate with dockerhub via the web.  (If you haven't authenticated, it should give you a key in the terminal along with a URL.  You'll copy and paste the key into the prompt the URL gives you.)
 
 ## II. Project Structure
+Either you can clone this repo, or if you'd rather, you can go through the exercise of setting up the project yourself.  All of the contents of each file is contained in this README.
 ```
 my-web-app/
+├── Dockerfile
 ├── app/
 │   ├── main.py
 │   └── requirements.txt
-├── Dockerfile
 └── k8s/
     ├── deployment.yaml
     └── service.yaml
 ```
 
-### 1. app
-#### main.py
-```python
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/')
-def hello():
-    return "Hello from Docker!"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-```
-
-#### requirements.txt
-```
-flask==3.0.0
-```
-
-
-### 2. Dockerfile
+### 1. Dockerfile
+The dockerfile has no file extension.  Just make a file called "Dockerfile" and you're good.
 ```dockerfile
 # Use official Python runtime as base image
 FROM python:3.9-slim
@@ -68,6 +50,30 @@ EXPOSE 5000
 # Run the application
 CMD ["python", "main.py"]
 ```
+
+
+### 2. app
+#### main.py
+Super basic Flask app.
+```python
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return "Hello from Docker!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
+
+#### requirements.txt
+```
+flask==3.0.0
+```
+
+
+
 
 ### 3. k8s
 #### deployment.yaml (k8s deployment)
