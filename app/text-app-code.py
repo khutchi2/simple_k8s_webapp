@@ -29,10 +29,15 @@ def init_db():
     cur.close()
     conn.close()
 
-# Initialize the database when the app starts
-@app.before_first_request
-def initialize():
+# In Flask 3.0.0, before_first_request is removed, so we use a different approach
+# Initialize database when app starts
+@app.route('/init-db', methods=['GET'])
+def initialize_db():
     init_db()
+    return "Database initialized successfully"
+
+# Call this function in a startup script or from your Kubernetes init container
+# Alternatively, you can use Flask's cli commands or built-in callbacks in the app factory pattern
 
 @app.route('/', methods=['GET'])
 def index():
@@ -57,4 +62,7 @@ def add_entry():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    # Make sure the database is initialized at startup
+    with app.app_context():
+        init_db()
     app.run(host='0.0.0.0', port=8080)
