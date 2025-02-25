@@ -1,20 +1,14 @@
-# Use official Python runtime as base image
+# Dockerfile
 FROM python:3.9-slim
 
-# Set working directory in container
 WORKDIR /app
 
-# Copy requirements file
-COPY app/requirements.txt .
-
-# Install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY app/ .
+COPY app.py .
+COPY templates/ templates/
 
-# Make port 5000 available
-EXPOSE 5000
+EXPOSE 8080
 
-# Run the application
-CMD ["python", "main.py"]
+CMD ["python", "app.py"]

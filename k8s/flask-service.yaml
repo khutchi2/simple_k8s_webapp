@@ -1,0 +1,12 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: text-app-service
+spec:
+  selector:
+    app: text-app
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
